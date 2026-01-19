@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id String @id @default(uuid())
+  username String 
+  email String @unique
+  password String 
+  reservation Reservation[]
+  roleId String?
+  role Role? @relation(fields: [roleId], references: [id])
+
+  @@map("users")
+}
+
+model Role {
+  id String @id @default(uuid())
+  name String
+  user User[]
+
+  @@map("roles")
+}
+
+model Outlet {
+  id String @id @default(uuid())
+  name String
+  outlet_image String?
+  public_id String?
+  address String
+  cityId String?
+  city City? @relation(fields: [cityId], references: [id])
+  barber Barber[]
+  reservation Reservation[]
+  createdAt  DateTime   @default(now())
+  
+
+  @@map("outlets")
+}
+
+model City {
+  id String @id @default(uuid())
+  name String
+  outlet Outlet[]
+
+  @@map("cities")
+}
+
+
+model Barber {
+  id String @id @default(uuid())
+  name_barber String
+  image String?
+  public_id String?
+  outletId String
+  outlet Outlet @relation(fields: [outletId], references: [id])
+  resevation Reservation[]
+  
+
+  @@map("barbers")
+}
+
+model Service {
+  id String @id @default(uuid())
+  name String 
+  price Float
+  duration Int
+  reservationService ReservationService[]
+
+  @@map("services")
+}
+
+model ReservationService {
+  reservationId String 
+  serviceId String
+  service Service @relation(fields: [serviceId], references: [id])
+  reservation Reservation @relation(fields: [reservationId], references: [id])
+
+  @@map("reservation_services")
+  @@id([reservationId, serviceId])
+}
+
+model Reservation {
+  id String @id @default(uuid())
+  userId String
+  barberId String
+  outletId String
+  startAt DateTime
+  endAt DateTime
+  user User @relation(fields: [userId], references: [id])
+  barber Barber @relation(fields: [barberId], references: [id])
+  outlet Outlet @relation(fields: [outletId], references: [id])
+  status ReservationStatus @default(PENDING)
+  service ReservationService[]
+  
+
+  @@map("reservations")
+  @@index([barberId, startAt, endAt])
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
