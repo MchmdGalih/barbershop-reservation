@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { loginService, registerService } from "../../service/auth/auth.service";
 
-const registerController = async (req: Request, res: Response) => {
+const registerController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const registeredUser = await registerService(req.body);
     res.status(201).json({
@@ -10,11 +14,15 @@ const registerController = async (req: Request, res: Response) => {
       data: registeredUser,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const loginController = async (req: Request, res: Response) => {
+const loginController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const authData = await loginService(req.body);
     res.status(200).json({
@@ -23,7 +31,7 @@ const loginController = async (req: Request, res: Response) => {
       data: authData,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 

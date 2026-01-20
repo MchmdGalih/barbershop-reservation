@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   createCityService,
   deleteCityService,
@@ -7,7 +7,11 @@ import {
   updateCityService,
 } from "../../service/cities/cities.service";
 
-const getAllCitiesController = async (req: Request, res: Response) => {
+const getAllCitiesController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const cities = await getAllCityService();
 
@@ -17,11 +21,15 @@ const getAllCitiesController = async (req: Request, res: Response) => {
       data: cities,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const getCityByIdController = async (req: Request, res: Response) => {
+const getCityByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const city = await getCityByIdService(req.params.id as string);
     res.status(200).json({
@@ -30,11 +38,15 @@ const getCityByIdController = async (req: Request, res: Response) => {
       data: city,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const createCityController = async (req: Request, res: Response) => {
+const createCityController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     console.log(req.body, "controller");
     const city = await createCityService(req.body);
@@ -44,11 +56,15 @@ const createCityController = async (req: Request, res: Response) => {
       data: city,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const updateCityController = async (req: Request, res: Response) => {
+const updateCityController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const cities = await updateCityService(req.params.id as string, req.body);
     res.status(200).json({
@@ -57,11 +73,15 @@ const updateCityController = async (req: Request, res: Response) => {
       data: cities,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const deletedCityController = async (req: Request, res: Response) => {
+const deletedCityController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     await deleteCityService(req.params.id as string);
 
@@ -70,7 +90,7 @@ const deletedCityController = async (req: Request, res: Response) => {
       message: "City deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 export {

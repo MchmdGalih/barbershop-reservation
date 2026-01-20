@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   createRoleService,
   deleteRoleService,
@@ -7,7 +7,11 @@ import {
   updateRoleService,
 } from "../../service/role/role.service";
 
-const createRoleController = async (req: Request, res: Response) => {
+const createRoleController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const role = await createRoleService(req.body);
     res.status(201).json({
@@ -16,11 +20,15 @@ const createRoleController = async (req: Request, res: Response) => {
       data: role,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const getAllRoleController = async (req: Request, res: Response) => {
+const getAllRoleController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const roles = await getRoleService();
     res.status(200).json({
@@ -28,10 +36,16 @@ const getAllRoleController = async (req: Request, res: Response) => {
       message: "Roles fetched successfully",
       data: roles,
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getRoleByIdController = async (req: Request, res: Response) => {
+const getRoleByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const role = await getRoleByIdService(req.params.id as string);
     res.status(200).json({
@@ -40,11 +54,15 @@ const getRoleByIdController = async (req: Request, res: Response) => {
       data: role,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const updateRoleController = async (req: Request, res: Response) => {
+const updateRoleController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const role = await updateRoleService(req.params.id as string, req.body);
 
@@ -54,18 +72,24 @@ const updateRoleController = async (req: Request, res: Response) => {
       data: role,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const deleteRoleController = async (req: Request, res: Response) => {
+const deleteRoleController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     await deleteRoleService(req.params.id as string);
     res.status(200).json({
       success: true,
       message: "Role deleted successfully",
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 export {

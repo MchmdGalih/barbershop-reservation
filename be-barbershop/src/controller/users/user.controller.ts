@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   createUserService,
   deleteUserService,
@@ -7,7 +7,11 @@ import {
   updateUserService,
 } from "../../service/users/user.service";
 
-const getAllUserController = async (req: Request, res: Response) => {
+const getAllUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const users = await getAllUserService();
     res.status(200).json({
@@ -16,11 +20,15 @@ const getAllUserController = async (req: Request, res: Response) => {
       data: users,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const getUserByIdController = async (req: Request, res: Response) => {
+const getUserByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const user = await getUserByIdService(req.params.id as string);
 
@@ -30,11 +38,15 @@ const getUserByIdController = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const createUserController = async (req: Request, res: Response) => {
+const createUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const user = await createUserService(req.body);
 
@@ -44,11 +56,15 @@ const createUserController = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const updatedUserController = async (req: Request, res: Response) => {
+const updatedUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const user = await updateUserService(req.params.id as string, req.body);
 
@@ -58,11 +74,15 @@ const updatedUserController = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-const deletedUserController = async (req: Request, res: Response) => {
+const deletedUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     await deleteUserService(req.params.id as string);
 
@@ -71,7 +91,7 @@ const deletedUserController = async (req: Request, res: Response) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
