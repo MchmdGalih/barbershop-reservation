@@ -80,18 +80,20 @@ const createUserService = async (payload: UserInput) => {
 };
 
 const updateUserService = async (id: string, payload: UserUpdateInput) => {
+  const { roleId, ...userData } = payload;
   const updatedUser = await prisma.user.update({
     where: {
       id,
     },
     data: {
-      username: payload.username,
-      email: payload.email,
-      role: {
-        connect: {
-          id: payload.roleId,
+      ...userData,
+      ...(roleId && {
+        role: {
+          connect: {
+            id: roleId,
+          },
         },
-      },
+      }),
     },
     select: {
       id: true,

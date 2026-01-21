@@ -14,5 +14,5 @@ app.use("/api", router);
 app.use(errorGlobalMiddleware);
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port http://localhost:${PORT}`);
+  console.log(`App listening on port http://localhost:${PORT}`);
 });
