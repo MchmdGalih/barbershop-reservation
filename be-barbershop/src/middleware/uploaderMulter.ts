@@ -22,4 +22,4 @@ export const uploadFile = multer({
   storage,
   limits: { fileSize: maxSize },
   fileFilter,
-}).single("image_outlet");
+});

@@ -4,6 +4,7 @@ import authRouter from "./auth";
 import userRouter from "./users";
 import citiesRouter from "./cities";
 import outletRouter from "./outlets";
+import barberRouter from "./barber";
 const router = Router();
 
 router.use("/role", roleRouter);
@@ -11,5 +12,6 @@ router.use("/auth/", authRouter);
 router.use("/user", userRouter);
 router.use("/city", citiesRouter);
 router.use("/outlet", outletRouter);
+router.use("/barber", barberRouter);
 
 export default router;

@@ -1,5 +1,6 @@
 import { AppErrors } from "../../errors/AppError";
 import { prisma } from "../../lib/prisma";
+import { OutletInput, OutletUpdateInput } from "../../types/outlet";
 import {
   deleteImageFromCloudinary,
   uploadImageToCloudinary,
@@ -11,7 +12,7 @@ const getAllOutletService = async () => {
       id: true,
       name: true,
       outlet_image: true,
-      public_id: true,
+      address: true,
       city: {
         select: {
           name: true,
@@ -32,7 +33,6 @@ const getOutletByIdService = async (id: string) => {
       id: true,
       name: true,
       outlet_image: true,
-      public_id: true,
       city: {
         select: {
           name: true,
@@ -74,7 +74,7 @@ const createOutletService = async (
 
 const updateOutletService = async (
   id: string,
-  payload: OutletInput,
+  payload: OutletUpdateInput,
   file?: Express.Multer.File,
 ) => {
   const existingOutlet = await prisma.outlet.findFirst({
