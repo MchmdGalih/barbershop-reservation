@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppErrors } from "../errors/AppError";
 import { ZodError } from "zod";
+import { Prisma } from "../../generated/prisma/client";
 
 export const errorGlobalMiddleware = (
   err: any,
@@ -16,6 +17,34 @@ export const errorGlobalMiddleware = (
         field: issue.path.join("."),
         message: issue.message,
       })),
+    });
+  }
+
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    switch (err.code) {
+      case "P2002": // Unique constraint failed
+        return res.status(409).json({
+          error: "Duplicate entry",
+          meta: err.meta,
+        });
+      case "P2025": // Record not found
+        return res.status(404).json({
+          error: "Record not found",
+          meta: err.meta,
+        });
+      default:
+        return res.status(400).json({
+          error: "Prisma request error",
+          code: err.code,
+          meta: err.meta,
+        });
+    }
+  }
+
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    return res.status(400).json({
+      error: "Validation error in Prisma query",
+      message: err.message,
     });
   }
 

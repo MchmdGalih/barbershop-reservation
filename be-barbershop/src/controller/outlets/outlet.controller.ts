@@ -80,7 +80,7 @@ const updateOutletController = async (
       data: outlet,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 

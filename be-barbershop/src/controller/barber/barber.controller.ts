@@ -21,7 +21,7 @@ const getAllBarberController = async (
       data: barbers,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -80,7 +80,7 @@ const updateBarberController = async (
       data: barber,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
