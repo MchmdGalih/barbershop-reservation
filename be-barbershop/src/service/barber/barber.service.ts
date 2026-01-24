@@ -30,7 +30,7 @@ const getAllBarberService = async () => {
 };
 
 const getBarberByIdService = async (id: string) => {
-  const barber = await prisma.barber.findFirst({
+  const barber = await prisma.barber.findUnique({
     where: {
       id,
     },

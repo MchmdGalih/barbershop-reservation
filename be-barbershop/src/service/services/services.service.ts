@@ -9,7 +9,7 @@ const getAllService = async () => {
 };
 
 const getServiceById = async (id: string) => {
-  const service = await prisma.service.findFirst({
+  const service = await prisma.service.findUnique({
     where: {
       id,
     },

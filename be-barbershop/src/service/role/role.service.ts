@@ -35,7 +35,7 @@ const getRoleService = async () => {
 };
 
 const getRoleByIdService = async (id: string) => {
-  const role = await prisma.role.findFirst({
+  const role = await prisma.role.findUnique({
     where: {
       id,
     },

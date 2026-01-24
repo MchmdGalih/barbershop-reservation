@@ -21,7 +21,7 @@ const getAllUserService = async () => {
 };
 
 const getUserByIdService = async (id: string) => {
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: {
       id,
     },

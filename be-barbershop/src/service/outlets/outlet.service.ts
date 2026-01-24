@@ -25,7 +25,7 @@ const getAllOutletService = async () => {
 };
 
 const getOutletByIdService = async (id: string) => {
-  const outlet = await prisma.outlet.findFirst({
+  const outlet = await prisma.outlet.findUnique({
     where: {
       id,
     },

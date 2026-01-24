@@ -18,7 +18,7 @@ const getAllCityService = async () => {
 };
 
 const getCityByIdService = async (id: string) => {
-  const city = await prisma.city.findFirst({
+  const city = await prisma.city.findUnique({
     where: {
       id,
     },
