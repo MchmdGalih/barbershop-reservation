@@ -28,7 +28,6 @@ CREATE TABLE "outlets" (
     "public_id" TEXT,
     "address" TEXT NOT NULL,
     "cityId" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "outlets_pkey" PRIMARY KEY ("id")
 );
@@ -56,7 +55,7 @@ CREATE TABLE "barbers" (
 CREATE TABLE "services" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
+    "price" INTEGER NOT NULL,
     "duration" INTEGER NOT NULL,
 
     CONSTRAINT "services_pkey" PRIMARY KEY ("id")
@@ -79,6 +78,7 @@ CREATE TABLE "reservations" (
     "startAt" TIMESTAMP(3) NOT NULL,
     "endAt" TIMESTAMP(3) NOT NULL,
     "status" "ReservationStatus" NOT NULL DEFAULT 'PENDING',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "reservations_pkey" PRIMARY KEY ("id")
 );

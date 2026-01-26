@@ -45,7 +45,6 @@ model Outlet {
   city City? @relation(fields: [cityId], references: [id])
   barber Barber[]
   reservation Reservation[]
-  createdAt  DateTime   @default(now())
   
 
   @@map("outlets")
@@ -105,7 +104,8 @@ model Reservation {
   outlet Outlet @relation(fields: [outletId], references: [id])
   status ReservationStatus @default(PENDING)
   service ReservationService[]
-  
+  createdAt  DateTime   @default(now())
+
 
   @@map("reservations")
   @@index([barberId, startAt, endAt])
