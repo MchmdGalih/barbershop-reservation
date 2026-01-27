@@ -67,6 +67,7 @@ const createOutletService = async (
       outlet_image: secure_url,
       public_id: public_id,
     },
+    omit: { public_id: true },
   });
 
   return outlet;

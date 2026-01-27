@@ -27,10 +27,14 @@ const createReservationController = async (
   next: NextFunction,
 ) => {
   try {
-    const reservation = await createReservationService(req.user.id, req.body);
+    const reservation = await createReservationService(req.body);
+    console.log(reservation, "--> controller");
   } catch (error) {
     console.log(error);
   }
 };
+
+
+
 
 export { createReservationController, getAllReservationController };

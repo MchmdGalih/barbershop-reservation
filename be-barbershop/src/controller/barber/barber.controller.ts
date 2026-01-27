@@ -91,6 +91,10 @@ const deleteBarberController = async (
 ) => {
   try {
     await deleteBarberService(req.params.id as string);
+    res.status(200).json({
+      success: true,
+      message: "Barber deleted successfully",
+    });
   } catch (error) {
     next(error);
   }

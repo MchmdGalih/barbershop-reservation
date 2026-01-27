@@ -48,7 +48,6 @@ const createCityController = async (
   next: NextFunction,
 ) => {
   try {
-    console.log(req.body, "controller");
     const city = await createCityService(req.body);
     res.status(201).json({
       success: true,

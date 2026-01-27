@@ -72,6 +72,7 @@ const createBarberService = async (
       image: secure_url,
       public_id: public_id,
     },
+    omit: { public_id: true },
   });
 
   return barber;
