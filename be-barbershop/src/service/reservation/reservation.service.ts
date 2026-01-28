@@ -20,8 +20,11 @@ const getAllReservationService = async () => {
   return reservationToday;
 };
 
-const createReservationService = async (payload: ReservationInput) => {
-  const { userId, outletId, barberId, startAt, serviceId } = payload;
+const createReservationService = async (
+  userId: string,
+  payload: ReservationInput,
+) => {
+  const { outletId, barberId, startAt, serviceId } = payload;
 
   return await prisma.$transaction(async (tx) => {
     //1. ambil service

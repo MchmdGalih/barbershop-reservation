@@ -3,18 +3,10 @@ import { verifyToken } from "../utils/jwt";
 import type { JwtPayload } from "jsonwebtoken";
 import { handleJwtError } from "../utils/handleJwtErr";
 
-interface AuthenticatedRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    role?: string;
-  };
-}
-
 export const authentication = async (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const authHeader = req.get("Authorization");
