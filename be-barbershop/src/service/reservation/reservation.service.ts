@@ -87,6 +87,7 @@ const createReservationService = async (
 
     return {
       ...reservation,
+      services,
       startAt: toZonedTime(reservation.startAt, TIME_ZONE),
       endAt: toZonedTime(reservation.endAt, TIME_ZONE),
     };

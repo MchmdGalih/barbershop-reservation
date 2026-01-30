@@ -4,7 +4,7 @@ import router from "./router/index";
 import "./config/cloudinary";
 import { errorGlobalMiddleware } from "./middleware/error.middleware";
 const app = express();
-const PORT = 3000;
+const PORT = 3002;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
