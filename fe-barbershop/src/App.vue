@@ -3,11 +3,12 @@ import { computed } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import defaultLayout from "@/layouts/default.vue";
 import adminLayout from "@/layouts/adminLayout.vue";
+import authLayout from "@/layouts/authLayout.vue";
 const route = useRoute();
 
 const layouts = {
-  admin: "admin-layout",
-  authL: "auth-layout",
+  admin: adminLayout,
+  auth: authLayout,
   default: defaultLayout,
 };
 

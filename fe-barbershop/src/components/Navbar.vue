@@ -35,8 +35,8 @@
     </nav>
 
     <div class="md:inline-flex hidden gap-8">
-      <button class="cursor-pointer">Login</button>
-      <button class="cursor-pointer">Register</button>
+      <RouterLink to="/sign-in" class="cursor-pointer">Login</RouterLink>
+      <RouterLink to="/register" class="cursor-pointer">Register</RouterLink>
     </div>
   </header>
 </template>
