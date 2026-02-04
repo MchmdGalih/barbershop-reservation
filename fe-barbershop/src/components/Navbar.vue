@@ -1,3 +1,46 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import { RouterLink } from "vue-router";
+
+const isActive = ref(null);
+const itemsMenu = ref([
+  {
+    name: "Home",
+    url: "",
+  },
+  {
+    name: "About Us",
+    url: "",
+  },
+  {
+    name: "Branch",
+    url: "",
+    children: [
+      {
+        name: "Braga",
+        url: "",
+      },
+      {
+        name: "Melong Cabeleireiros",
+        url: "",
+      },
+      {
+        name: "Barreiros",
+        url: "",
+      },
+    ],
+  },
+  {
+    name: "Hair Artist",
+    url: "",
+  },
+]);
+
+const toggle = () => {
+  isActive.value = !isActive.value;
+};
+</script>
+
 <template>
   <header
     class="bg-white text-black py-6 w-full flex justify-between px-6 md:px-18 items-center border-gray-200 border-b-2"
@@ -40,46 +83,3 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
-
-const isActive = ref(null);
-const itemsMenu = ref([
-  {
-    name: "Home",
-    url: "",
-  },
-  {
-    name: "About Us",
-    url: "",
-  },
-  {
-    name: "Branch",
-    url: "",
-    children: [
-      {
-        name: "Bandung",
-        url: "",
-      },
-      {
-        name: "Jakarta",
-        url: "",
-      },
-      {
-        name: "Surabaya",
-        url: "",
-      },
-    ],
-  },
-  {
-    name: "Hair Artist",
-    url: "",
-  },
-]);
-
-const toggle = () => {
-  isActive.value = !isActive.value;
-};
-</script>
