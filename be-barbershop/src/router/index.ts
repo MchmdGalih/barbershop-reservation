@@ -10,7 +10,7 @@ import reservationRouter from "./reservation";
 const router = Router();
 
 router.use("/role", roleRouter);
-router.use("/auth/", authRouter);
+router.use("/auth", authRouter);
 router.use("/user", userRouter);
 router.use("/city", citiesRouter);
 router.use("/outlet", outletRouter);
