@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    token: null as String | null,
+    token: "" as string | null,
     isAuthenticated: false,
     isLoading: false,
     error: null as string | null,
@@ -14,12 +14,18 @@ export const useAuthStore = defineStore("auth", {
       this.error = null;
       try {
         const { data } = await api.post("/auth/login", payload);
-        this.token = data.token;
+        this.token = data.data.token;
         this.isAuthenticated = true;
-        return data;
+
+        return {
+          success: true,
+          mesagee: data.message,
+        };
       } catch (error: any) {
         const message = error.response?.data?.message;
         this.error = message || "Login Failed";
+
+        return { success: false, message };
       } finally {
         this.isLoading = false;
       }
@@ -30,10 +36,19 @@ export const useAuthStore = defineStore("auth", {
       this.error = null;
       try {
         const { data } = await api.post("/auth/register", payload);
-        return data;
+
+        return {
+          success: true,
+          message: data.message,
+        };
       } catch (error: any) {
         const message = error.response?.data?.message;
         this.error = message || "Registration Failed";
+
+        return {
+          success: false,
+          message,
+        };
       } finally {
         this.isLoading = false;
       }

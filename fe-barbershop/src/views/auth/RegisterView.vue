@@ -2,15 +2,21 @@
 import { useAuthStore } from "@/stores/auth";
 import { toast } from "vue3-toastify";
 import FormAuth from "@/components/Form/FormAuth.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const store = useAuthStore();
 const handleSubmit = async (payload: any) => {
-  try {
-    const response = await store.register(payload);
-    console.log(response);
-  } catch (error) {
-    toast.error(error.message);
+  const response = await store.register(payload);
+
+  if (!response?.success) {
+    toast.error(response?.message || "Register failed.");
+    return;
   }
+
+  toast.success(response.message, {
+    onClose: () => router.push({ name: "sign-in" }),
+  });
 };
 </script>
 

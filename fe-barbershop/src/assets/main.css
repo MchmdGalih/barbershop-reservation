@@ -1,1 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --color-dark: #000000;
+  --color-light-beige: #f4dfc8;
+  --color-tertiary: #f4eae0;
+  --color-quaternary: #faf6f0;
+}
+
+body {
+  background-color: var(--color-dark);
+  font-family: var(--font-inter);
+  color: var(--color-quaternary);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-roboto);
+  font-weight: 700;
+}
+
+.btn-custom {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  border: 3px solid var(--color-light-beige);
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+  text-decoration: none;
+  overflow: hidden;
+  font-family: inherit;
+  z-index: 0;
+}
+
+.btn-custom::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-light-beige);
+  transform: translateX(-100%);
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.btn-custom:hover::before {
+  transform: translateX(0);
+}

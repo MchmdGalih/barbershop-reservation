@@ -3,8 +3,11 @@ import { computed, Prop, reactive } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, email, minLength } from "@vuelidate/validators";
 import BaseInput from "@/components/Base/BaseInput.vue";
+import { useAuthStore } from "@/stores/auth";
+const store = useAuthStore();
 
 const isRegister = computed(() => props.mode === "register");
+const isLoading = computed(() => store.isLoading);
 
 interface Props {
   mode: "login" | "register";
@@ -108,10 +111,12 @@ const handleSubmit = async () => {
       <div class="space-y-2">
         <div class="w-full relative">
           <button
-            class="inline-flex w-full gap-2 bg-blue-600 text-base text-white rounded-md py-2 cursor-pointer justify-center items-center"
+            class="inline-flex w-full gap-2 bg-dark border border-light-beige text-base text-white rounded-md py-2 cursor-pointer justify-center items-center"
             type="submit"
+            :disabled="isLoading"
           >
-            {{ isRegister ? "Register" : "Sign In" }}
+            <p v-if="isLoading">loading..</p>
+            <span v-else>{{ isRegister ? "Register" : "Sign In" }}</span>
           </button>
         </div>
       </div>

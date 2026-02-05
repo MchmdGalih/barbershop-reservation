@@ -14,7 +14,7 @@ app.use(pinia);
 app.use(router);
 app.component("Icon", Icon);
 app.use(Vue3Toastify, {
-  autoClose: 3000,
+  autoClose: 1500,
 });
 
 app.mount("#app");
