@@ -1,47 +1,24 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { onMounted, onUnmounted, ref } from "vue";
-import { RouterLink } from "vue-router";
 import { toast } from "vue3-toastify";
 
+defineProps<{ itemsMenu: any[] }>();
+const emits = defineEmits(["handle-logout"]);
+
 const isActive = ref<boolean>(false);
-const itemsMenu = ref([
-  {
-    name: "Home",
-    url: "",
-  },
-  {
-    name: "About Us",
-    url: "",
-  },
-  {
-    name: "Branch",
-    url: "",
-    children: [
-      {
-        name: "Braga",
-        url: "",
-      },
-      {
-        name: "Melong Cabeleireiros",
-        url: "",
-      },
-      {
-        name: "Barreiros",
-        url: "",
-      },
-    ],
-  },
-  {
-    name: "Hair Artist",
-    url: "",
-  },
-]);
+const showNavbar = ref<boolean>(true);
+const lastScrollPosition = ref<number>(0);
 
 const store = useAuthStore();
 
-const showNavbar = ref<boolean>(true);
-const lastScrollPosition = ref<number>(0);
+const onHandleLogout = () => {
+  emits("handle-logout");
+};
+
+const toggle = () => {
+  isActive.value = !isActive.value;
+};
 
 const handleScrollShow = () => {
   const currentScrollPosition = window.scrollY;
@@ -65,44 +42,34 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScrollShow);
 });
-
-const handleLogout = () => {
-  store.logout();
-  toast.success("Logout successfully.", {
-    onClose: () => window.location.reload(),
-  });
-};
-const toggle = () => {
-  isActive.value = !isActive.value;
-};
 </script>
 
 <template>
   <header
     class="lg:py-6 md:py-4 py-2 w-full flex justify-between px-6 lg:px-18 md:px-12 items-center fixed top-0 bg-transparent z-10 transition-transform duration-300 ease-in-out"
-    :class="{ '-translate-y-full': !showNavbar }"
+    :class="{ '-translate-y-full ': !showNavbar }"
   >
-    <div class="h-14 w-24">
+    <div class="h-14 w-fit">
       <RouterLink to="/"
         ><img
-          src="../assets/images/brand-barbershop.png"
-          class="w-full h-full object-cover rounded-md"
+          src="../../../assets/images/brand-barbershop.png"
+          class="h-full object-contain rounded-md"
       /></RouterLink>
     </div>
 
-    <nav class="md:block hidden relative">
+    <nav class="block relative">
       <ul class="flex items-center gap-8 space-x-2">
         <li v-for="(item, idx) in itemsMenu" :key="idx">
           <RouterLink :to="item.url" v-if="!item.children">{{
             item.name
           }}</RouterLink>
           <div v-else>
-            <button @click="toggle()" class="cursor-pointer p-2 rounded-sm">
+            <button @click="toggle" class="cursor-pointer p-2 rounded-sm">
               {{ item.name }}
             </button>
             <div
               v-if="isActive"
-              class="border-2 border-light-beige bg-dark w-46 rounded-md absolute mt-2 gap-y-2 px-4 py-2 z-10"
+              class="border-2 border-light-beige bg-dark w-full rounded-md absolute mt-2 gap-y-2 px-4 py-2 z-10"
             >
               <RouterLink
                 v-for="(child, cidx) in item.children"
@@ -128,7 +95,7 @@ const toggle = () => {
         <RouterLink to="/register" class="cursor-pointer">Register</RouterLink>
       </template>
 
-      <button @click="handleLogout" class="cursor-pointer" v-else>
+      <button @click="onHandleLogout" class="cursor-pointer" v-else>
         Logout
       </button>
     </div>

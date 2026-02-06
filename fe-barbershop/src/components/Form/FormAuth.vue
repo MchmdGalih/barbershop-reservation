@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, Prop, reactive } from "vue";
+import { computed, reactive } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, email, minLength } from "@vuelidate/validators";
 import BaseInput from "@/components/Base/BaseInput.vue";
