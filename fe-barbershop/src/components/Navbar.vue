@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { toast } from "vue3-toastify";
 
@@ -40,6 +40,32 @@ const itemsMenu = ref([
 
 const store = useAuthStore();
 
+const showNavbar = ref<boolean>(true);
+const lastScrollPosition = ref<number>(0);
+
+const handleScrollShow = () => {
+  const currentScrollPosition = window.scrollY;
+
+  if (
+    currentScrollPosition > lastScrollPosition.value &&
+    currentScrollPosition > 50
+  ) {
+    showNavbar.value = false;
+  } else {
+    showNavbar.value = true;
+  }
+
+  lastScrollPosition.value = currentScrollPosition;
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScrollShow);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScrollShow);
+});
+
 const handleLogout = () => {
   store.logout();
   toast.success("Logout successfully.", {
@@ -53,9 +79,16 @@ const toggle = () => {
 
 <template>
   <header
-    class="py-6 w-full flex justify-between px-6 lg:px-18 md:px-12 items-center sticky top-0 backdrop-blur-lg z-50"
+    class="lg:py-6 md:py-4 py-2 w-full flex justify-between px-6 lg:px-18 md:px-12 items-center fixed top-0 bg-transparent z-10 transition-transform duration-300 ease-in-out"
+    :class="{ '-translate-y-full': !showNavbar }"
   >
-    <div class="font-bold text-4xl">Brand</div>
+    <div class="h-14 w-24">
+      <RouterLink to="/"
+        ><img
+          src="../assets/images/brand-barbershop.png"
+          class="w-full h-full object-cover rounded-md"
+      /></RouterLink>
+    </div>
 
     <nav class="md:block hidden relative">
       <ul class="flex items-center gap-8 space-x-2">
