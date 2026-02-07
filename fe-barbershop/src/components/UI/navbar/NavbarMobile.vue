@@ -7,9 +7,13 @@ const emits = defineEmits(["handle-logout"]);
 const store = useAuthStore();
 
 const isActive = ref<boolean>(false);
-
+const isOpen = ref<boolean>(false);
 const onHandleLogout = () => {
   emits("handle-logout");
+};
+
+const onOpen = () => {
+  isOpen.value = !isOpen.value;
 };
 const toggle = () => {
   isActive.value = !isActive.value;
@@ -17,7 +21,7 @@ const toggle = () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-dark z-50 flex flex-col">
+  <div class="fixed w-full bg-dark z-50 flex flex-col">
     <section class="py-4 px-6 flex justify-between items-center">
       <div class="h-14 w-fit">
         <RouterLink to="/">
@@ -27,9 +31,9 @@ const toggle = () => {
         /></RouterLink>
       </div>
 
-      <Burger />
+      <Burger @on-open="onOpen" :isOpen="isOpen" />
     </section>
-    <section class="flex flex-col px-6 flx-1 h-screen">
+    <section class="px-6" :class="[isOpen ? 'h-screen' : 'hidden ']">
       <nav class="py-4">
         <ul class="flex flex-col gap-6 mb-2">
           <li
