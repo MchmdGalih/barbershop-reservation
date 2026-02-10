@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useWindowSize } from "@/composable/useWindowSize";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
@@ -8,6 +9,8 @@ const animationRevealText = () => {
   let iterator = 0;
   const target = "TRIM REPAIR";
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  const { isMobile } = useWindowSize();
 
   const interval = setInterval(() => {
     display.value = target
@@ -60,6 +63,7 @@ animationRevealText();
           </button>
         </div>
       </div>
+
       <div
         class="bg-[url('/src/assets/images/bg-hero-right.jpg')] bg-center bg-cover w-full h-full mask-y-from-70% mask-y-to-100% grayscale-100% hidden md:block"
       >
