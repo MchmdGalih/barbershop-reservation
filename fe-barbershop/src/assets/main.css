@@ -18,6 +18,12 @@ body {
   color: var(--color-quaternary);
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0;
+  padding: 0;
+}
+
 h1,
 h2,
 h3 {
@@ -54,4 +60,20 @@ h3 {
 
 .btn-custom:hover::before {
   transform: translateX(0);
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
 }
