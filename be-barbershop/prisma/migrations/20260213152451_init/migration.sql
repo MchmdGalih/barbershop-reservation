@@ -87,6 +87,9 @@ CREATE TABLE "reservations" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "roles_name_key" ON "roles"("name");
+
+-- CreateIndex
 CREATE INDEX "reservations_barberId_startAt_endAt_idx" ON "reservations"("barberId", "startAt", "endAt");
 
 -- AddForeignKey
