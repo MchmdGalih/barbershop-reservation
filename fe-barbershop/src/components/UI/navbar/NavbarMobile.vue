@@ -41,12 +41,9 @@ const onOpen = () => {
             :key="idx"
             class="py-2 px-2 border-2 btn-custom hover:text-dark"
           >
-            <RouterLink
-              :to="item.url"
-              v-if="!item.children"
-              class="font-mona"
-              >{{ item.name }}</RouterLink
-            >
+            <a :href="item.url" v-if="!item.children" class="font-mona">{{
+              item.name
+            }}</a>
             <div v-else>
               <button class="cursor-pointer rounded-sm">
                 {{ item.name }}

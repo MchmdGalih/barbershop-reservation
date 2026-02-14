@@ -11,16 +11,24 @@ const authStore = useAuthStore();
 const branchStore = useBranchStore();
 const router = useRouter();
 
-const branches: any = computed(() => branchStore.branch);
+interface Branch {
+  id: string;
+  name: string;
+  address: string;
+  public_id: string;
+  outlet_image: string;
+}
+
+const branches = computed(() => branchStore.branch);
 
 const itemsMenu = computed(() => [
   {
     name: "Home",
-    url: "",
+    url: "#home",
   },
   {
     name: "About Us",
-    url: "",
+    url: "#about",
   },
   {
     name: "Branch",
@@ -32,18 +40,12 @@ const itemsMenu = computed(() => [
   },
   {
     name: "Hair Artist",
-    url: "",
+    url: "#hair-artist",
   },
 ]);
 
 const { isMobile } = useWindowSize();
 
-const getDataBranch = async () => {
-  const response = await branchStore.getAllBranch();
-  if (!response?.success) {
-    toast.error(response?.message);
-  }
-};
 const handleLogout = () => {
   authStore.logout();
   toast.success("Logout successfully.", {
@@ -51,6 +53,12 @@ const handleLogout = () => {
   });
 };
 
+const getDataBranch = async () => {
+  const response = await branchStore.getAllBranch();
+  if (!response?.success) {
+    toast.error(response?.message || "Something went wrong.");
+  }
+};
 onMounted(() => {
   getDataBranch();
 });

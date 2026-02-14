@@ -33,6 +33,7 @@ animationRevealText();
 
 <template>
   <div
+    id="hero"
     class="min-h-[90vh] flex justify-center items-center md:px-14 bg-[url('/src/assets/images/bg-hero-left.jpg')] bg-center bg-cover bg-no-repeat grayscale-50 mask-b-from-70% mask-b-to-100%"
   >
     <section

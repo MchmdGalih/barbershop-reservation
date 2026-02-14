@@ -55,9 +55,7 @@ onUnmounted(() => {
     <nav class="block relative">
       <ul class="flex items-center gap-8 space-x-2">
         <li v-for="(item, idx) in itemsMenu" :key="idx">
-          <RouterLink :to="item.url" v-if="!item.children">{{
-            item.name
-          }}</RouterLink>
+          <a :href="item.url" v-if="!item.children">{{ item.name }}</a>
           <div v-else>
             <span
               class="flex items-center cursor-pointer"
