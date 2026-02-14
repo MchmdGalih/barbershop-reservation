@@ -22,7 +22,7 @@ model User {
   password String 
   reservation Reservation[]
   roleId String?
-  role Role? @relation(fields: [roleId], references: [id])
+  role Role? @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
   @@map("users")
 }
@@ -42,17 +42,17 @@ model Outlet {
   public_id String?
   address String
   cityId String?
-  city City? @relation(fields: [cityId], references: [id])
+  city City? @relation(fields: [cityId], references: [id], onDelete: Cascade)
   barber Barber[]
   reservation Reservation[]
   
-
+  @@unique([name, address, cityId])
   @@map("outlets")
 }
 
 model City {
   id String @id @default(uuid())
-  name String
+  name String @unique
   outlet Outlet[]
 
   @@map("cities")
@@ -61,11 +61,11 @@ model City {
 
 model Barber {
   id String @id @default(uuid())
-  name_barber String
+  name_barber String @unique
   image String?
   public_id String?
   outletId String
-  outlet Outlet @relation(fields: [outletId], references: [id])
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
   resevation Reservation[]
   
 
@@ -85,8 +85,8 @@ model Service {
 model ReservationService {
   reservationId String 
   serviceId String
-  service Service @relation(fields: [serviceId], references: [id])
-  reservation Reservation @relation(fields: [reservationId], references: [id])
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
 
   @@map("reservation_services")
   @@id([reservationId, serviceId])
@@ -99,9 +99,9 @@ model Reservation {
   outletId String
   startAt DateTime
   endAt DateTime
-  user User @relation(fields: [userId], references: [id])
-  barber Barber @relation(fields: [barberId], references: [id])
-  outlet Outlet @relation(fields: [outletId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  barber Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
   status ReservationStatus @default(PENDING)
   service ReservationService[]
   createdAt  DateTime   @default(now())

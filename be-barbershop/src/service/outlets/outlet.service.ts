@@ -8,16 +8,9 @@ import {
 
 const getAllOutletService = async () => {
   const outlets = await prisma.outlet.findMany({
-    select: {
-      id: true,
-      name: true,
-      outlet_image: true,
-      address: true,
-      city: {
-        select: {
-          name: true,
-        },
-      },
+    include: {
+      city: true,
+      barber: true,
     },
   });
 
@@ -29,20 +22,9 @@ const getOutletByIdService = async (id: string) => {
     where: {
       id,
     },
-    select: {
-      id: true,
-      name: true,
-      outlet_image: true,
-      city: {
-        select: {
-          name: true,
-        },
-      },
-      barber: {
-        select: {
-          name_barber: true,
-        },
-      },
+    include: {
+      city: true,
+      barber: true,
     },
   });
 

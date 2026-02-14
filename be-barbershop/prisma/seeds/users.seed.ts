@@ -27,5 +27,9 @@ export async function userSeeders(roles: Role[]): Promise<User[]> {
     skipDuplicates: true,
   });
 
-  return prisma.user.findMany();
+  return prisma.user.findMany({
+    include: {
+      role: true,
+    },
+  });
 }
