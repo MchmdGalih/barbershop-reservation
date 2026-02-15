@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useBranchStore } from "@/stores/branch";
 import { storeToRefs } from "pinia";
+import CardImage from "./card/CardImage.vue";
 const branchStore = useBranchStore();
 const { branches } = storeToRefs(branchStore);
 
 const selectedBranch = ref<null | any>(null);
 const handleSelectedBranch = (value: any) => (selectedBranch.value = value);
+
+// const dataDuplicatedForImage = computed(() => {
+//   if (!selectedBranch.value?.barber) return [];
+
+//   return [...selectedBranch.value.barber, ...selectedBranch.value.barber].map((_, ));
+// });
+
+// console.log(dataDuplicatedForImage, "data image");
 
 watch(
   branches,
@@ -20,7 +29,7 @@ watch(
 </script>
 
 <template>
-  <div class="w-full min-h-80">
+  <div class="w-full min-h-3/4">
     <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
       <div class="w-full flex flex-col justify-center gap-8 px-16 py-4">
         <div class="space-y-2">
@@ -69,17 +78,13 @@ watch(
         </div>
       </div>
 
-      <div class="overflow-hidden px-2">
-        <div class="grid grid-cols-3 gap-4">
-          <div
-            v-for="branch in selectedBranch?.barber"
-            :key="branch.id"
-            class="h-80 w-full"
-          >
-            <img
-              :src="branch.image"
-              alt="barber"
-              class="w-full h-full rounded-md object-cover"
+      <div class="px-2">
+        <div class="overflow-hidden">
+          <div class="grid grid-cols-3 gap-4">
+            <CardImage
+              v-for="barber in selectedBranch?.barber"
+              :key="barber.id"
+              :image="barber.image"
             />
           </div>
         </div>
