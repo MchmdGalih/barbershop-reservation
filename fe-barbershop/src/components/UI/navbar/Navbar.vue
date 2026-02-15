@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import NavbarDekstop from "./NavbarDekstop.vue";
 import { toast } from "vue3-toastify";
@@ -11,15 +11,7 @@ const authStore = useAuthStore();
 const branchStore = useBranchStore();
 const router = useRouter();
 
-interface Branch {
-  id: string;
-  name: string;
-  address: string;
-  public_id: string;
-  outlet_image: string;
-}
-
-const branches = computed(() => branchStore.branch);
+const branches = computed(() => branchStore.branches);
 
 const itemsMenu = computed(() => [
   {

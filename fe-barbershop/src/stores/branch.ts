@@ -3,14 +3,14 @@ import { defineStore } from "pinia";
 
 export const useBranchStore = defineStore("branch", {
   state: () => ({
-    branch: [],
+    branches: [],
   }),
 
   actions: {
     async getAllBranch() {
       try {
         const { data } = await api.get("/outlet");
-        this.branch = data.data;
+        this.branches = data.data;
 
         return {
           success: true,

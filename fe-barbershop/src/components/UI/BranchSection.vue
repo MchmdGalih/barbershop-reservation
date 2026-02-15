@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useBranchStore } from "@/stores/branch";
-import { computed } from "vue";
-
+import { storeToRefs } from "pinia";
 const branchStore = useBranchStore();
-const branches = computed(() => branchStore.branch);
+const { branches } = storeToRefs(branchStore);
 
-const selectedBranch = ref(branches.value[0]);
-
+const selectedBranch = ref<null | any>(null);
 const handleSelectedBranch = (value: any) => (selectedBranch.value = value);
 
-watch(branches, (newValue) => {
-  if (newValue.length) selectedBranch.value = newValue[0];
-});
+watch(
+  branches,
+  (newValue) => {
+    if (newValue.length && !selectedBranch.value) {
+      selectedBranch.value = newValue[0];
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <div class="w-full min-h-80">
-    <div class="grid md:grid-cols-2 grid-cols-1 w-full max-h-max gap-6">
+    <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
       <div class="w-full flex flex-col justify-center gap-8 px-16 py-4">
         <div class="space-y-2">
           <span class="text-base">Our</span>
