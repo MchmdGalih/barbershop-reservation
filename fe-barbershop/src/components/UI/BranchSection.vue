@@ -9,13 +9,11 @@ const { branches } = storeToRefs(branchStore);
 const selectedBranch = ref<null | any>(null);
 const handleSelectedBranch = (value: any) => (selectedBranch.value = value);
 
-// const dataDuplicatedForImage = computed(() => {
-//   if (!selectedBranch.value?.barber) return [];
+const dataDuplicatedForImage = computed(() => {
+  if (!selectedBranch.value?.barber) return [];
 
-//   return [...selectedBranch.value.barber, ...selectedBranch.value.barber].map((_, ));
-// });
-
-// console.log(dataDuplicatedForImage, "data image");
+  return [...selectedBranch.value.barber, ...selectedBranch.value.barber];
+});
 
 watch(
   branches,
@@ -29,7 +27,7 @@ watch(
 </script>
 
 <template>
-  <div class="w-full min-h-3/4">
+  <div class="w-full min-h-full overflow-hidden">
     <div class="grid md:grid-cols-2 grid-cols-1 gap-6">
       <div class="w-full flex flex-col justify-center gap-8 px-16 py-4">
         <div class="space-y-2">
@@ -78,12 +76,21 @@ watch(
         </div>
       </div>
 
-      <div class="px-2">
-        <div class="overflow-hidden">
-          <div class="grid grid-cols-3 gap-4">
+      <div class="flex w-full h-auto overflow-hidden bg-blue-50 gap-2.5">
+        <div
+          class="flex-1 overflow-hidden max-h-[80vh]"
+          v-for="(_, colIdx) in 3"
+          :key="colIdx"
+        >
+          <div
+            class="flex flex-col gap-4 animations-scorll"
+            :style="{
+              animationDirection: colIdx % 2 === 0 ? 'normal' : 'reverse',
+            }"
+          >
             <CardImage
-              v-for="barber in selectedBranch?.barber"
-              :key="barber.id"
+              v-for="(barber, idx) in dataDuplicatedForImage"
+              :key="`colIdx-${idx}`"
               :image="barber.image"
             />
           </div>
@@ -92,3 +99,19 @@ watch(
     </div>
   </div>
 </template>
+
+<style scoped>
+.animations-scorll {
+  animation: scrolUp 24s linear infinite;
+}
+
+@keyframes scrolUp {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+</style>

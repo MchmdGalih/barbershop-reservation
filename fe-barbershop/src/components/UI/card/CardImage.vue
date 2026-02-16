@@ -7,7 +7,7 @@ const props = defineProps<BranchPropsImage>();
 </script>
 
 <template>
-  <div class="h-72 w-full overflow-hidden rounded-xl">
+  <div class="w-full overflow-hidden rounded-xl">
     <img
       :src="props.image"
       alt="barber"
