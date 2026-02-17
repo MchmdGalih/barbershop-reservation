@@ -3,6 +3,7 @@ import { barberSeeders } from "./seeds/barbers.seed";
 import { citySeeders } from "./seeds/cities.seed";
 import { OutletSeeders } from "./seeds/outlets.seed";
 import { roleSeeders } from "./seeds/roles.seed";
+import { serviceSeeders } from "./seeds/services.seed";
 import { userSeeders } from "./seeds/users.seed";
 
 const prisma = new PrismaClient();
@@ -13,6 +14,7 @@ async function main() {
   const cities = await citySeeders();
   const outlets = await OutletSeeders(cities);
   const barbers = await barberSeeders(outlets);
+  const services = await serviceSeeders();
 }
 
 main()

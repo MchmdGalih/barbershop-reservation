@@ -1,12 +1,14 @@
 <template>
   <div id="about" class="w-full min-h-full bg-white text-dark px-16 py-18">
-    <div class="grid grid-cols-2 gap-8 mx-auto">
+    <div class="grid md:grid-cols-2 grid-cols-1 gap-8 mx-auto">
       <section>
         <div class="space-y-2 max-w-xl ml-auto px-4">
-          <h1 class="text-5xl font-bold text-end tracking-widest">
+          <h1
+            class="md:text-5xl text-3xl font-bold md:text-end text-center tracking-widest"
+          >
             ABOUT <span class="text-light-beige">US.</span>
           </h1>
-          <p class="text-base font-light text-end">
+          <p class="text-base font-light md:text-end text-center">
             Founded in 2025, our barbershop was built on a simple belief: a
             great haircut is not just about style, but about confidence. We
             created this space for those who value precision, comfort, and
@@ -22,7 +24,7 @@
           </p>
         </div>
       </section>
-      <section class="border"></section>
+      <section class="border md:block hidden"></section>
     </div>
   </div>
 </template>

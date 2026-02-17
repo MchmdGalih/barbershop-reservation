@@ -32,7 +32,7 @@ watch(
       <div class="w-full flex flex-col justify-center gap-8 px-16 py-4">
         <div class="space-y-2">
           <span class="text-base">Our</span>
-          <h1 class="text-6xl">BRANCH</h1>
+          <h1 class="md:text-6xl text-4xl font-bold">BRANCH</h1>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -41,17 +41,21 @@ watch(
           >
             TRIM REAPER
           </h3>
-          <h1 class="text-5xl font-bold">
+          <h1 class="lg:text-2xl 2xl:text-4xl text-xl font-bold">
             {{ selectedBranch?.name.toUpperCase() }}
           </h1>
           <p class="text-xl tracking-wide">{{ selectedBranch?.address }}</p>
         </div>
 
-        <div class="flex items-center gap-4">
-          <button class="btn-custom p-4 font-bold">Book Now</button>
+        <div class="flex items-center max-w-max flex-wrap gap-4">
+          <button
+            class="btn-custom p-4 rounded-md md:text-xl text-xs font-bold"
+          >
+            Book Now
+          </button>
           <RouterLink
             :to="`/branch/${selectedBranch?.id}`"
-            class="btn-custom p-4"
+            class="btn-custom p-4 rounded-md md:text-xl text-xs"
             >View Branch</RouterLink
           >
         </div>
@@ -59,7 +63,7 @@ watch(
         <div class="space-y-4">
           <h4 class="font-bold">Our Branches</h4>
           <ul class="flex items-center gap-6 flex-wrap">
-            <li v-for="branch in branches" :key="branch.id">
+            <li v-for="branch in branches" :key="branch?.id">
               <button
                 @click="handleSelectedBranch(branch)"
                 :class="
@@ -67,7 +71,7 @@ watch(
                     ? 'bg-quaternary text-dark'
                     : ''
                 "
-                class="p-2 text-base font-bold border border-quaternary rounded-md"
+                class="p-2 md:text-base text-sm font-bold border border-quaternary rounded-md"
               >
                 {{ branch.name }}
               </button>
@@ -76,17 +80,17 @@ watch(
         </div>
       </div>
 
-      <div class="flex w-full h-auto overflow-hidden bg-blue-50 gap-2.5">
+      <div class="flex w-full h-auto overflow-hidden gap-2.5">
         <div
-          class="flex-1 overflow-hidden max-h-[80vh]"
+          class="flex-1 overflow-hidden md:max-h-screen max-h-[60vh]"
           v-for="(_, colIdx) in 3"
           :key="colIdx"
         >
           <div
             class="flex flex-col gap-4 animations-scorll"
-            :style="{
-              animationDirection: colIdx % 2 === 0 ? 'normal' : 'reverse',
-            }"
+            :class="[
+              colIdx % 2 === 0 ? 'animation-normal' : 'animation-reverse',
+            ]"
           >
             <CardImage
               v-for="(barber, idx) in dataDuplicatedForImage"
@@ -103,6 +107,14 @@ watch(
 <style scoped>
 .animations-scorll {
   animation: scrolUp 24s linear infinite;
+}
+
+.animation-normal {
+  animation-direction: normal;
+}
+
+.animation-reverse {
+  animation-direction: reverse;
 }
 
 @keyframes scrolUp {
