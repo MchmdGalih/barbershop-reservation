@@ -27,6 +27,14 @@ const router = createRouter({
         layout: "auth",
       },
     },
+    {
+      path: "/:cathAll(.*)",
+      name: "not-found",
+      component: () => import("../views/NotFoundView.vue"),
+      meta: {
+        layout: "default",
+      },
+    },
   ],
 });
 
